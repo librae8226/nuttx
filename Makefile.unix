@@ -423,6 +423,10 @@ endif
 ifeq ($(CONFIG_RAW_BINARY),y)
 	@echo "CP: $(BIN).bin"
 	$(Q) $(OBJCOPY) $(OBJCOPYARGS) -O binary $(BIN) $(BIN).bin
+	@echo "DUMP: $(BIN).lss"
+	$(Q) $(OBJDUMP) -d -x $(BIN) > $(BIN).lss
+	@echo "SIZE: $(BIN)"
+	$(Q) $(CROSSDEV)size $(BIN)
 endif
 ifeq ($(CONFIG_UBOOT_UIMAGE),y)
 	@echo "MKIMAGE: uImage"
