@@ -289,6 +289,14 @@ static void dns_save_answer(FAR const char *hostname,
   int next;
   int ndx;
 
+  /* If DNS not initialized, no need to proceed */
+
+  if (!g_dns_initialized)
+    {
+      nvdbg("DNS not initialized yet\n");
+      return -ENOENT;
+    }
+
   /* Get exclusive access to the DNS cache */
 
   dns_semtake();
