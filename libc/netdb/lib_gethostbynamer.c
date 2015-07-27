@@ -435,7 +435,7 @@ static int lib_dns_lookup(FAR const char *name, FAR struct hostent *host,
 
       /* Yes.. Return the address that we obtained from the DNS name server. */
 
-      info->hi_addrlist[0] = ptr;
+      info->hi_addrlist[0] = (char *)&(((FAR struct sockaddr_in *)ptr)->sin_addr.s_addr);
       host->h_addr_list    = info->hi_addrlist;
       host->h_addrtype     = addrtype;
       host->h_length       = addrlen;
