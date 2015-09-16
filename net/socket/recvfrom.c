@@ -431,7 +431,7 @@ static inline void recvfrom_udpreadahead(struct recvfrom_s *pstate)
    * buffer.
    */
 
-  pstate->rf_recvlen = -1;
+  pstate->rf_recvlen = 0;
 
   if ((iob = iob_peek_queue(&conn->readahead)) != NULL)
     {
