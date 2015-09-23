@@ -99,7 +99,7 @@ static inline int lowvsyslog_internal(FAR const char *fmt, va_list ap)
 
   /* Wrap the stdout in a stream object and let lib_vsprintf do the work. */
 
-#ifdef CONFIG_SYSLOG
+#if 0
   lib_syslogstream((FAR struct lib_outstream_s *)&stream);
 #else
   lib_lowoutstream((FAR struct lib_outstream_s *)&stream);
