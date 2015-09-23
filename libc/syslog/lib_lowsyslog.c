@@ -42,6 +42,7 @@
 #include <stdio.h>
 #include <syslog.h>
 
+#include <nuttx/clock.h>
 #include <nuttx/streams.h>
 
 #include "syslog/syslog.h"
@@ -104,6 +105,16 @@ static inline int lowvsyslog_internal(FAR const char *fmt, va_list ap)
 #else
   lib_lowoutstream((FAR struct lib_outstream_s *)&stream);
 #endif
+  struct timespec ts;
+  int ret;
+  ret = clock_systimespec(&ts);
+  if (ret == OK)
+    {
+      (void)lib_sprintf((FAR struct lib_outstream_s *)&stream,
+                        "<%6d.%06d> ",
+                         ts.tv_sec, ts.tv_nsec/1000);
+    }
+
   return lib_vsprintf((FAR struct lib_outstream_s *)&stream, fmt, ap);
 }
 
