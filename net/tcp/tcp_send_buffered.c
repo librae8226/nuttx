@@ -946,7 +946,7 @@ ssize_t psock_tcp_send(FAR struct socket *psock, FAR const void *buf,
 
   if (psock->s_type != SOCK_STREAM || !_SS_ISCONNECTED(psock->s_flags))
     {
-      ndbg("ERROR: Not connected\n");
+      nvdbg("ERROR: Not connected\n");
       err = ENOTCONN;
       goto errout;
     }
