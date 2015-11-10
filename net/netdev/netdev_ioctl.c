@@ -389,8 +389,7 @@ static int netdev_ifrioctl(FAR struct socket *psock, int cmd,
             {
               netdev_ifdown(dev);
               ioctl_setipv4addr(&dev->d_ipaddr, &req->ifr_addr);
-              netdev_ifup(dev);
-              ret = OK;
+              ret = netdev_ifup(dev);
             }
         }
         break;
@@ -482,8 +481,7 @@ static int netdev_ifrioctl(FAR struct socket *psock, int cmd,
 
               netdev_ifdown(dev);
               ioctl_setipv6addr(dev->d_ipv6addr, &lreq->lifr_addr);
-              netdev_ifup(dev);
-              ret = OK;
+              ret = netdev_ifup(dev);
             }
         }
         break;
@@ -585,6 +583,7 @@ static int netdev_ifrioctl(FAR struct socket *psock, int cmd,
         {
           /* Is this a request to bring the interface up? */
 
+          ret = OK;
           dev = netdev_ifrdev(req);
           if (dev)
             {
@@ -592,7 +591,7 @@ static int netdev_ifrioctl(FAR struct socket *psock, int cmd,
                 {
                   /* Yes.. bring the interface up */
 
-                  netdev_ifup(dev);
+                  ret = netdev_ifup(dev);
                 }
 
               /* Is this a request to take the interface down? */
@@ -604,8 +603,6 @@ static int netdev_ifrioctl(FAR struct socket *psock, int cmd,
                   netdev_ifdown(dev);
                 }
             }
-
-          ret = OK;
         }
         break;
 
@@ -1001,8 +998,9 @@ errout:
  *
  ****************************************************************************/
 
-void netdev_ifup(FAR struct net_driver_s *dev)
+int netdev_ifup(FAR struct net_driver_s *dev)
 {
+  int ret = OK;
   /* Make sure that the device supports the d_ifup() method */
 
   if (dev->d_ifup)
@@ -1013,7 +1011,9 @@ void netdev_ifup(FAR struct net_driver_s *dev)
         {
           /* No, bring the interface up now */
 
-          if (dev->d_ifup(dev) == OK)
+          ret = dev->d_ifup(dev);
+
+          if (ret == OK)
             {
               /* Mark the interface as up */
 
@@ -1021,6 +1021,7 @@ void netdev_ifup(FAR struct net_driver_s *dev)
             }
         }
     }
+  return ret;
 }
 
 void netdev_ifdown(FAR struct net_driver_s *dev)

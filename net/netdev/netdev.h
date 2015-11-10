@@ -90,7 +90,7 @@ EXTERN struct net_driver_s *g_netdevices;
  *
  ****************************************************************************/
 
-void netdev_ifup(FAR struct net_driver_s *dev);
+int netdev_ifup(FAR struct net_driver_s *dev);
 void netdev_ifdown(FAR struct net_driver_s *dev);
 
 /****************************************************************************
