@@ -536,7 +536,7 @@ static int dns_recv_response(int sd, FAR struct sockaddr *addr,
 
     for (;;)
       {
-        ndbg("%02X %02X %02X %02X %02X %02X %02X %02X \n",
+        nvdbg("%02X %02X %02X %02X %02X %02X %02X %02X \n",
              nameptr[0],nameptr[1],nameptr[2],nameptr[3],
              nameptr[4],nameptr[5],nameptr[6],nameptr[7]);
 
