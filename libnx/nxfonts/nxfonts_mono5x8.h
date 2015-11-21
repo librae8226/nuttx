@@ -56,6 +56,10 @@
 
 #define NXFONT_SPACEWIDTH 5
 
+/* space (32) */
+#define NXFONT_METRICS_32 {1, 5, 8, 0, 0, 0}
+#define NXFONT_BITMAP_32 {0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0}
+
 /* exclam (33) */
 #define NXFONT_METRICS_33 {1, 5, 8, 0, 0, 0}
 #define NXFONT_BITMAP_33 {0x0, 0x20, 0x20, 0x20, 0x20, 0x0, 0x20, 0x0}
